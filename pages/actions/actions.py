@@ -1,8 +1,10 @@
 import streamlit as st
-from streamlit_elements import elements, mui, html, dashboard
+from streamlit_elements import elements, mui, html, dashboard, sync, event
+from streamlit import session_state as state
+from types import SimpleNamespace
 from pathlib import Path
 
-from pages.actions.utils.prompt_card import prompt_card
+from .utils import Dashboard, PromptCard
 
 
 def main():
@@ -12,6 +14,36 @@ def main():
     with st.expander("GETTING STARTED"):
         st.write((Path(__file__).parent/"README.md").read_text())
     st.title("")
+
+
+    
+    if "w" not in state:
+        board = Dashboard()
+        w = SimpleNamespace(
+            dashboard=board,
+            prompt_card=prompt_card(board, 0, 0, 2, 2, minW=1, minH=1),
+        )
+        state.w = w
+
+        w.editor.add_tab("Card content", Card.DEFAULT_CONTENT, "plaintext")
+    else:
+        w = state.w
+
+    with elements("demo"):
+        event.Hotkey("ctrl+s", sync(), bindInputs=True, overrideDefault=True)
+
+        with w.dashboard(rowHeight=57):
+            w.editor()
+            w.player()
+            w.pie(w.editor.get_content("Pie chart"))
+            w.radar(w.editor.get_content("Radar chart"))
+            w.card(w.editor.get_content("Card content"))
+            w.data_grid(w.editor.get_content("Data grid"))
+
+
+
+---
+
 
     with elements("dashboard"):
 

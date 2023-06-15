@@ -1,9 +1,30 @@
-import streamlit as st
+from streamlit_elements import mui
+from .dashboard import Dashboard
 
-def prompt_card():
+
+class PromptCard(Dashboard.Item):
+    
     # Standard text content for the card
-    default_content = "This is the standard text content for the card."
+    DEFAULT_CONTENT = "This is the standard text content for the card."
 
+    def __call__(self, content):
+        with mui.Card(key=self._key, sx={"display": "flex", "flexDirection": "column", "borderRadius": 3, "overflow": "hidden"}, elevation=1):
+            mui.CardHeader(
+                title="Prompt panel",
+                avatar=mui.Avatar("R", sx={"bgcolor": "red"}),
+                action=mui.IconButton(mui.icon.MoreVert),
+                className=self._draggable_class,
+            )
+
+            with mui.CardContent(sx={"flex": 1}):
+                mui.Typography(content)
+                mui.button("Settings")
+
+            with mui.CardActions(disableSpacing=True):
+                mui.IconButton(mui.icon.Favorite)
+                mui.IconButton(mui.icon.Share)
+            
+        
     # Display the card with the default content
     card = st.empty()  # Placeholder for the card content
     card.text(default_content)
