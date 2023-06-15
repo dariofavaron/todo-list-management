@@ -12,6 +12,9 @@ with elements("new_element"):
     )
 
 
+st.button('Click me')
+
+
 with elements("dashboard"):
 
     from streamlit_elements import dashboard
