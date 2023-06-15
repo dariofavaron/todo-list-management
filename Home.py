@@ -1,7 +1,7 @@
 import streamlit as st
 
 from pages import actions
-from utils import page_group
+from utils.page import page_group
 
 def main():
 
@@ -13,7 +13,7 @@ def main():
         st.title("🎈 Todo List Manager")
 
         with st.expander("🧩 COMPONENTS", True):
-            page.item("Actions", actions.actions)
+            page.item("Actions", actions)
 
     page.show()
 
