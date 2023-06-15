@@ -1,12 +1,15 @@
 import streamlit as st
 from streamlit_elements import elements, mui, html, dashboard
-
+import prompt_card
 
 
 def main():
 
-    st.title('Todo List Manager')
     st.subheader('Actions')
+
+    with st.expander("GETTING STARTED"):
+        st.write((Path(__file__).parent/"README.md").read_text())
+    st.title("")
 
     with elements("dashboard"):
 
@@ -26,6 +29,10 @@ def main():
             mui.Paper("First item", key="first_item")
             mui.Paper("Second item (cannot drag)", key="second_item")
             mui.Paper("Third item (cannot resize)", key="third_item")
+
+    prompt_card()
+
+
 
 if __name__ == "__main__":
     st.set_page_config(layout="wide")
