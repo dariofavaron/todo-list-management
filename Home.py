@@ -1,6 +1,22 @@
 import streamlit as st
 
-st.title('Todo List Manager')
-st.header('Actions')
-st.header('Knowledge base')
-st.header('Agents')
+from pages import actions
+from utils import page_group
+
+def main():
+
+    st.title('Todo List Manager')
+    
+    page = page_group("p")
+
+    with st.sidebar:
+        st.title("🎈 Todo List Manager")
+
+        with st.expander("🧩 COMPONENTS", True):
+            page.item("Actions", actions.actions)
+
+    page.show()
+
+if __name__ == "__main__":
+    st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
+    main()
