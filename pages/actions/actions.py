@@ -1,7 +1,7 @@
 import streamlit as st
 from streamlit_elements import elements, mui, html, dashboard
 
-from prompt_card import prompt_card
+from utils.prompt_card import prompt_card
 
 
 def main():
