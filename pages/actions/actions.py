@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_elements import elements, mui, html, dashboard
-import prompt_card
+from prompt_card import prompt_card
 
 
 def main():
