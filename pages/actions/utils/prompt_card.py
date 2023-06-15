@@ -25,9 +25,9 @@ class PromptCard(Dashboard.Item):
                 mui.IconButton(mui.icon.Share)
             
         
-    # Display the card with the default content
-    card = st.empty()  # Placeholder for the card content
-    card.text(default_content)
+    # # Display the card with the default content
+    # card = st.empty()  # Placeholder for the card content
+    # card.text(default_content)
 
     # Add a settings button
     if st.button("Settings"):

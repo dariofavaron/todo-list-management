@@ -25,7 +25,7 @@ def main():
         )
         state.w = w
 
-        w.editor.add_tab("Card content", Card.DEFAULT_CONTENT, "plaintext")
+        w.editor.add_tab("Card content", PromptCard.DEFAULT_CONTENT, "plaintext")
     else:
         w = state.w
 
