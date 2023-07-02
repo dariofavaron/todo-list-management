@@ -316,7 +316,7 @@ class MindMap:
         for node in sorted(self.nodes):
             self._add_expand_delete_buttons(node)
 
-    def import_graph_from_txt(file_path: str) -> MindMap:
+    def import_graph_from_txt(self, file_path: str) -> MindMap:
         with open(file_path, "r") as file:
             lines = file.readlines()
 
