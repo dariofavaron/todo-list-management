@@ -1,5 +1,5 @@
 # Core
-streamlit
+streamlit==1.19.0
 
 # Streamlit components
 streamlit-ace
@@ -15,3 +15,8 @@ streamlit-elements==0.1.*
 pandas-profiling
 requests
 
+graphviz==0.20.1
+matplotlib==3.7.0
+networkx==3.0
+openai==0.27.0
+streamlit-agraph==0.0.45
