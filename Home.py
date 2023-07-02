@@ -15,7 +15,7 @@ def main():
         with st.expander("🧩 COMPONENTS", True):
             page.item("Actions", actions)
 
-    page.show()
+    #page.show()
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Todo List Manager", page_icon="🎈", layout="wide")
