@@ -316,12 +316,38 @@ class MindMap:
         for node in sorted(self.nodes):
             self._add_expand_delete_buttons(node)
 
+    def import_graph_from_txt(file_path: str) -> MindMap:
+        with open(file_path, "r") as file:
+            lines = file.readlines()
+
+        mindmap = MindMap()
+
+        for line in lines:
+            line = line.strip()
+            if line.startswith("/ToDo/"):
+                categories = line[6:].split("/")
+                edges = [(categories[i], categories[i+1]) for i in range(len(categories)-1)]
+                mindmap.edges.extend(edges)
+                mindmap.nodes.extend(categories)
+
+        mindmap.nodes = list(set(mindmap.nodes))
+        mindmap.save()
+
+        return mindmap
+
+
+
 def main():
     # will initialize the graph from session state
     # (if it exists) otherwise will create a new one
     mindmap = MindMap.load()
 
     st.sidebar.title("AI Mind Map Generator")
+
+    # File import
+    file_imported = st.sidebar.file_uploader("Import graph from TXT", type="txt")
+    if file_imported is not None:
+        mindmap = import_graph_from_txt(file_imported.name)
 
     graph_type = st.sidebar.radio("Type of graph", options=["agraph", "networkx"])
     
