@@ -347,7 +347,7 @@ def main():
     # File import
     file_imported = st.sidebar.file_uploader("Import graph from TXT", type="txt")
     if file_imported is not None:
-        mindmap = import_graph_from_txt(file_imported.name)
+        mindmap = mindmap.import_graph_from_txt(file_imported.name)
 
     graph_type = st.sidebar.radio("Type of graph", options=["agraph", "networkx"])
     
