@@ -1,17 +1,17 @@
+
+import os
 from __future__ import annotations
 import re
 from typing import Optional, Tuple, List, Union, Literal
-import base64
-import matplotlib.pyplot as plt
+#import base64
 import networkx as nx
 import streamlit as st
-from streamlit.delta_generator import DeltaGenerator
-import os
+#from streamlit.delta_generator import DeltaGenerator
 import openai
-import graphviz
 from dataclasses import dataclass, asdict
 from textwrap import dedent
 from streamlit_agraph import agraph, Node, Edge, Config
+import matplotlib.pyplot as plt
 
 # set title of page (will be seen in tab) and the width
 st.set_page_config(page_title="AI Mind Maps", layout="wide")
@@ -262,15 +262,15 @@ class MindMap:
             on_click=self._delete_node,
             type="primary",
             key=f"delete_{node}",
-            # pass on to _delete_node
+            # pass on to _delete_node0
             args=(node,)
         )
 
-    def visualize(self, graph_type: Literal["agraph", "networkx", "graphviz"]) -> None:
+    def visualize(self, graph_type: Literal["agraph", "networkx"]) -> None:
         """Visualize the mindmap as a graph a certain way depending on the `graph_type`.
 
         Args:
-            graph_type (Literal["agraph", "networkx", "graphviz"]): The graph type to visualize the mindmap as.
+            graph_type (Literal["agraph", "networkx"]): The graph type to visualize the mindmap as.
         Returns:
             Union[str, None]: Any output from the clicking the graph or 
                 if selecting a node in the sidebar.
@@ -313,17 +313,6 @@ class MindMap:
             pos = nx.spring_layout(graph, seed = 123)
             nx.draw(graph, pos=pos, node_color=colors, with_labels=True)
             st.pyplot(fig)
-        else: # graph_type == "graphviz":
-            graph = graphviz.Graph()
-            graph.attr(rankdir='LR')
-            for a, b in self.edges:
-                graph.edge(a, b, dir="both")
-            for n in self.nodes:
-                graph.node(n, style="filled", fillcolor=FOCUS_COLOR if n == selected else COLOR)
-            #st.graphviz_chart(graph, use_container_width=True)
-            b64 = base64.b64encode(graph.pipe(format='svg')).decode("utf-8")
-            html = f"<img style='width: 100%' src='data:image/svg+xml;base64,{b64}'/>"
-            st.write(html, unsafe_allow_html=True)
         # sort alphabetically
         for node in sorted(self.nodes):
             self._add_expand_delete_buttons(node)
@@ -335,7 +324,7 @@ def main():
 
     st.sidebar.title("AI Mind Map Generator")
 
-    graph_type = st.sidebar.radio("Type of graph", options=["agraph", "networkx", "graphviz"])
+    graph_type = st.sidebar.radio("Type of graph", options=["agraph", "networkx"])
     
     empty = mindmap.is_empty()
     reset = empty or st.sidebar.checkbox("Reset mind map", value=False)
